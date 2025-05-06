@@ -1,2 +1,2 @@
-# AdamLLM
-A large language model from scratch
+# Adam LLM
+Adam is a large language model implemented with PyTorch🤗
