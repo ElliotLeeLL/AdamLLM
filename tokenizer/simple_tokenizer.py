@@ -39,7 +39,7 @@ class SimpleTokenizer:
             "LLMs-from-scratch/main/ch02/01_main-chapter-code/"
             "the-verdict.txt"
         )
-        file_path = "the-verdict.txt"
+        file_path = "../the-verdict.txt"
         urllib.request.urlretrieve(url, file_path)
         with open(file_path, "r", encoding="utf-8") as f:
             raw_text = f.read()
