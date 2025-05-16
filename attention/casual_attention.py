@@ -17,11 +17,11 @@ class CasualAttention(nn.Module):
 
     def forward(self, x):
         batch_size, num_tokens, d_in = x.shape
-        querys = self.W_query(x)
+        queries = self.W_query(x)
         keys = self.W_key(x)
         values = self.W_value(x)
 
-        attn_scores = querys @ keys.transpose(1,2)
+        attn_scores = queries @ keys.transpose(1,2)
         attn_scores.masked_fill_(
             self.mask.bool()[:num_tokens, :num_tokens], -torch.inf
         )

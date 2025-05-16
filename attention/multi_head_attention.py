@@ -32,13 +32,7 @@ class MultiHeadAttention(nn.Module):
         keys = self.W_key(x)
         values = self.W_value(x)
         queries = self.W_query(x)
-        print("Before applying the view function")
-        print(keys.shape)
-        print(keys)
-        print("After applying the view function")
         keys = keys.view(batch_size, num_tokens, self.num_heads, self.head_dim)
-        print(keys.shape)
-        print(keys)
         queries = queries.view(batch_size, num_tokens, self.num_heads, self.head_dim)
         values = values.view(batch_size, num_tokens, self.num_heads, self.head_dim)
 
