@@ -1,8 +1,7 @@
 import torch
 import torch.nn as nn
-from layers import LayerNorm
-from attention.TransformerBlock import TransformerBlock
-from layers.LayerNorm import LayerNorm
+from attention.transformer_block import TransformerBlock
+from layers.layer_norm import LayerNorm
 
 class AdamLLMModel(nn.Module):
     def __init__(self, config):
@@ -12,7 +11,7 @@ class AdamLLMModel(nn.Module):
         self.dropout = nn.Dropout(config["drop_rate"])
         self.transformer_blocks = nn.Sequential(
             *[
-                nn.TransformerBlock(config)
+                TransformerBlock(config)
                 for _ in range(config["n_layers"])
             ]
         )
