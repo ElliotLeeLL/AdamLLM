@@ -33,22 +33,23 @@ class CasualAttention(nn.Module):
         context_vec = attn_weights @ values
         return context_vec
 
-inputs = torch.tensor([
-    [0.43, 0.15, 0.89],
-    [0.55, 0.87, 0.66],
-    [0.57, 0.85, 0.64],
-    [0.22, 0.58, 0.33],
-    [0.77, 0.25, 0.10],
-    [0.05, 0.80, 0.55]
-])
-batch = torch.stack((inputs, inputs), dim=0)
-
-model = CasualAttention(
-    d_in=3,
-    d_out=2,
-    context_length=batch.shape[1],
-    dropout=0.0
-)
-
-res = model(batch)
-print(res)
+# # Test code
+# inputs = torch.tensor([
+#     [0.43, 0.15, 0.89],
+#     [0.55, 0.87, 0.66],
+#     [0.57, 0.85, 0.64],
+#     [0.22, 0.58, 0.33],
+#     [0.77, 0.25, 0.10],
+#     [0.05, 0.80, 0.55]
+# ])
+# batch = torch.stack((inputs, inputs), dim=0)
+#
+# model = CasualAttention(
+#     d_in=3,
+#     d_out=2,
+#     context_length=batch.shape[1],
+#     dropout=0.0
+# )
+#
+# res = model(batch)
+# print(res)
