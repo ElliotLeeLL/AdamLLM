@@ -3,6 +3,7 @@ import torch.nn as nn
 from multi_head_attention import MultiHeadAttention
 from ..layers.feed_forward import FeedForward
 
+
 class TransformerBlock(nn.Module):
     def __init__(self, config):
         super().__init__()

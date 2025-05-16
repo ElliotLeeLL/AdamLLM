@@ -3,6 +3,7 @@ import torch.nn as nn
 from attention.transformer_block import TransformerBlock
 from layers.layer_norm import LayerNorm
 
+
 class AdamLLMModel(nn.Module):
     def __init__(self, config):
         super().__init__()

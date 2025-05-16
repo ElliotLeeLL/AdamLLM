@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 from gelu import GELU
 
+
 class FeedForward(nn.Module):
     def __init__(self, config):
         super().__init__()
