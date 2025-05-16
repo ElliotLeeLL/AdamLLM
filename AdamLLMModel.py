@@ -1,16 +1,8 @@
 import torch
 import torch.nn as nn
-
-config = {
-    "vocab_size": 50257,
-    "context_length": 1024,
-    "emb_dim": 768,
-    "n_layers": 12,
-    "n_heads": 12,
-    "drop_rate": 0.1,
-    "qkv_bias": False,
-}
-
+from layers import LayerNorm
+from attention.TransformerBlock import TransformerBlock
+from layers.LayerNorm import LayerNorm
 
 class AdamLLMModel(nn.Module):
     def __init__(self, config):
@@ -20,11 +12,11 @@ class AdamLLMModel(nn.Module):
         self.dropout = nn.Dropout(config["drop_rate"])
         self.transformer_blocks = nn.Sequential(
             *[
-                nn.DummyTransformerBlock(config)
+                nn.TransformerBlock(config)
                 for _ in range(config["n_layers"])
             ]
         )
-        self.final_norm = DummyLayerNorm(config["emb_dim"])
+        self.final_norm = LayerNorm(config["emb_dim"])
         self.out_head = nn.Linear(
             config["emb_dim"],
             config["vocab_size"],
@@ -44,19 +36,3 @@ class AdamLLMModel(nn.Module):
         x = self.final_norm(x)
         logits = self.out_head(x)
         return logits
-
-
-class DummyTransformerBlock(nn.Module):
-    def __init__(self, config):
-        super().__init__()
-
-    def forward(self, x):
-        return x
-
-
-class DummyLayerNorm(nn.Module):
-    def __init__(self, config):
-        super().__init__()
-
-    def forward(self, x):
-        return x
