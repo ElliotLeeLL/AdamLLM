@@ -39,7 +39,7 @@ def train_model_simple(
                 val_losses.append(val_loss)
                 track_tokens_seen.append(tokens_seen)
                 print(
-                    f"Ep {epoch + 1} (Step {global_step:06D})"
+                    f"Ep {epoch + 1} (Step {global_step:06d})"
                     f"Train loss {train_loss:.3f}"
                     f"Val loss {val_loss:.3f}"
                 )
@@ -51,7 +51,34 @@ def train_model_simple(
     return train_losses, val_losses, track_tokens_seen
 
 # Prepare the dataset
-# TODO
+file_path = "the-verdict.txt"
+with open(file_path, "r", encoding="utf-8") as f:
+    text_data = f.read()
+train_ratio = 0.90
+split_idx = int(len(text_data) * train_ratio)
+train_data = text_data[:split_idx]
+val_data = text_data[split_idx:]
+
+train_loader = create_dataloader(
+    train_data,
+    batch_size=2,
+    max_length=config["context_length"],
+    stride=config["context_length"],
+    drop_last=True,
+    shuffle=True,
+    num_workers=0
+)
+
+val_loader = create_dataloader(
+    val_data,
+    batch_size=2,
+    max_length=config["context_length"],
+    stride=config["context_length"],
+    drop_last=True,
+    shuffle=True,
+    num_workers=0
+)
+
 
 torch.manual_seed(42)
 tokenizer = tiktoken.get_encoding("gpt2")

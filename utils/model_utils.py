@@ -2,7 +2,7 @@ import torch
 import tiktoken
 
 def text_to_token_ids(text, tokenizer):
-    encoded = tokenizer.encode(text, allow_special={'<|endoftext|>'})
+    encoded = tokenizer.encode(text, allowed_special={'<|endoftext|>'})
     encoded_tensor = torch.tensor(encoded).unsqueeze(0)
     return encoded_tensor
 
@@ -18,7 +18,7 @@ def generate_text_simple(model, idx, max_new_tokens, context_size):
 
         logits = logits[:, -1, :]
         probs = torch.softmax(logits, dim=-1)
-        idx_next = torch.maxarg(probs, dim=-1, keep_dim=True)
+        idx_next = torch.argmax(probs, dim=-1, keepdim=True)
         idx = torch.cat([idx, idx_next], dim=1)
     return idx
 
@@ -67,7 +67,7 @@ def generate_and_print_sample(
     model, tokenizer, device, start_context
 ):
     model.eval()
-    context_size = model.pos_emb.weight.shape[0]
+    context_size = model.position_embedding.weight.shape[0]
     encoded = text_to_token_ids(start_context, tokenizer).to(device)
     with torch.no_grad():
         token_ids = generate_text_simple(

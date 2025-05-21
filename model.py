@@ -27,8 +27,7 @@ class AdamLLMModel(nn.Module):
         batch_size, seq_len = in_idx.shape
         token_embeds = self.token_embedding(in_idx)
         position_embeds = self.position_embedding(
-            torch.arange(seq_len),
-            device=in_idx.device
+            torch.arange(seq_len, device=in_idx.device)
         )
         x = token_embeds + position_embeds
         x = self.dropout(x)
