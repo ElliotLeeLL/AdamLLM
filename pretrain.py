@@ -85,7 +85,7 @@ tokenizer = tiktoken.get_encoding("gpt2")
 model = AdamLLMModel(config)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
-optimizer = torch.optim.Adam(
+optimizer = torch.optim.AdamW(
     model.parameters(),
     lr=0.0004,
     weight_decay=0.1
@@ -94,5 +94,4 @@ num_epochs = 10
 train_losses, val_losses, track_tokens_seen = train_model_simple(
     model, train_loader, val_loader, optimizer, device, num_epochs=num_epochs,
     eval_freq=5, eval_iter=5, start_context="Life is beautiful", tokenizer=tokenizer
-
 )
