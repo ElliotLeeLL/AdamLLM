@@ -2,7 +2,7 @@ import tiktoken
 import torch
 from configuration import config
 from model import AdamLLMModel
-from utils.model_utils import calc_loss_batch, evaluate_model, generate_and_print_sample
+from utils.model_utils import calc_loss_batch, evaluate_model, generate_and_print_sample, generate_and_print_top_k
 from dataset.adam_dataset import create_dataloader
 
 def train_model_simple(
@@ -43,10 +43,12 @@ def train_model_simple(
                     f"Train loss {train_loss:.3f}"
                     f"Val loss {val_loss:.3f}"
                 )
-
-        generate_and_print_sample(
+        generate_and_print_top_k(
             model, tokenizer, device, start_context
         )
+        # generate_and_print_sample(
+        #     model, tokenizer, device, start_context
+        # )
 
     return train_losses, val_losses, track_tokens_seen
 
