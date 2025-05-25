@@ -82,7 +82,7 @@ val_loader = create_dataloader(
 )
 
 
-torch.manual_seed(42)
+torch.manual_seed(43)
 tokenizer = tiktoken.get_encoding("gpt2")
 model = AdamLLMModel(config)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
